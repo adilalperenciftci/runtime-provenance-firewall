@@ -1,0 +1,15 @@
+{
+  "id": "AB-EGRESS-001",
+  "title": "Tool call targets an unapproved destination",
+  "description": "Exact normalized destination tuple is outside configured policy.",
+  "rationale": "Agent output must not silently expand network authority.",
+  "event_types": ["tool_call.requested"],
+  "required_fields": ["destination"],
+  "severity": "high",
+  "confidence": "high",
+  "effect": "review",
+  "mappings": ["OWASP ASI02"],
+  "positive_fixtures": ["fixtures/suspicious/secret-egress.json"],
+  "negative_fixtures": ["fixtures/benign/approved-call.json"],
+  "expected_rule_ids": ["AB-EGRESS-001", "AB-SECRET-001"]
+}

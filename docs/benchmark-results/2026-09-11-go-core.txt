@@ -1,0 +1,23 @@
+Linux 6.18.33.2-microsoft-standard-WSL2 x86_64 GNU/Linux
+go version go1.27.1 linux/amd64
+cpu: 11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+command: go test ./internal/rpf -run '^$' -bench . -benchmem -count=5
+fixture: 5 events, 4462 event bytes
+
+BenchmarkParseEventStream-12  1342  823525 ns/op  5.42 MB/s  329603 B/op   4883 allocs/op
+BenchmarkParseEventStream-12  1527  761890 ns/op  5.86 MB/s  329523 B/op   4882 allocs/op
+BenchmarkParseEventStream-12  1760  682521 ns/op  6.54 MB/s  329524 B/op   4882 allocs/op
+BenchmarkParseEventStream-12  1768  687808 ns/op  6.49 MB/s  329599 B/op   4883 allocs/op
+BenchmarkParseEventStream-12  1755  690626 ns/op  6.46 MB/s  329565 B/op   4883 allocs/op
+BenchmarkAssemble-12          1326  913414 ns/op               396231 B/op   5949 allocs/op
+BenchmarkAssemble-12          1263  913588 ns/op               396129 B/op   5948 allocs/op
+BenchmarkAssemble-12          1351  874298 ns/op               396133 B/op   5948 allocs/op
+BenchmarkAssemble-12          1395  877180 ns/op               396163 B/op   5948 allocs/op
+BenchmarkAssemble-12          1360  884598 ns/op               396234 B/op   5949 allocs/op
+BenchmarkVerify-12             652 1868657 ns/op               820348 B/op  12265 allocs/op
+BenchmarkVerify-12             649 1873900 ns/op               820382 B/op  12265 allocs/op
+BenchmarkVerify-12             639 1847748 ns/op               820420 B/op  12265 allocs/op
+BenchmarkVerify-12             625 1947445 ns/op               820513 B/op  12266 allocs/op
+BenchmarkVerify-12             657 1866184 ns/op               820118 B/op  12263 allocs/op
+
+PASS

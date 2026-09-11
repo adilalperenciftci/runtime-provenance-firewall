@@ -1,0 +1,7 @@
+{
+  "egress": {
+    "allowed_hosts": ["api.internal.test"],
+    "allowed_schemes": ["https"],
+    "allowed_ports": [443]
+  }
+}

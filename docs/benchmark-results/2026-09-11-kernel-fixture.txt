@@ -1,0 +1,15 @@
+Linux 6.18.33.2-microsoft-standard-WSL2 x86_64 GNU/Linux
+go version go1.27.1 linux/amd64
+host CPU: 11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+command: RPF_BENCH_ITERATIONS=100 ./tools/benchmark-kernel.sh
+fixture: one pre-created synthetic artifact, 100 cgroup-entered writes per paired run
+
+{"iterations":100,"baseline_ns":2306247190,"sensor_ns":2569279463,"overhead_percent":11.41,"observed_events":203,"observed_events_per_second":79.01,"loss":{"ring":0,"correlation":0,"path_read":0,"map_update":0,"cgroup_mismatch":0}}
+{"iterations":100,"baseline_ns":2489048537,"sensor_ns":2485291004,"overhead_percent":-0.15,"observed_events":203,"observed_events_per_second":81.68,"loss":{"ring":0,"correlation":0,"path_read":0,"map_update":0,"cgroup_mismatch":0}}
+{"iterations":100,"baseline_ns":2235781210,"sensor_ns":2556646667,"overhead_percent":14.35,"observed_events":203,"observed_events_per_second":79.40,"loss":{"ring":0,"correlation":0,"path_read":0,"map_update":0,"cgroup_mismatch":0}}
+{"iterations":100,"baseline_ns":2252798971,"sensor_ns":2465888042,"overhead_percent":9.46,"observed_events":203,"observed_events_per_second":82.32,"loss":{"ring":0,"correlation":0,"path_read":0,"map_update":0,"cgroup_mismatch":0}}
+{"iterations":100,"baseline_ns":2310417529,"sensor_ns":2455850594,"overhead_percent":6.29,"observed_events":203,"observed_events_per_second":82.66,"loss":{"ring":0,"correlation":0,"path_read":0,"map_update":0,"cgroup_mismatch":0}}
+
+The observed overhead median is 9.46% (range -0.15% to 14.35%) and the observed event-rate range
+is 79.01–82.66 events/s for this run. These are raw results from one WSL2 host, not a sustained
+throughput, representative build-overhead, or portability claim.
