@@ -2,8 +2,8 @@ package rpf
 
 import "errors"
 
-const LocalBuildType = "https://github.com/adilalperenciftci/agent-boundary/build-types/local-fixture/v0.1"
-const LocalBuilderID = "https://github.com/adilalperenciftci/agent-boundary/builders/local-fixture/v0.1"
+const LocalBuildType = "https://github.com/adilalperenciftci/runtime-provenance-firewall/build-types/local-fixture/v0.1"
+const LocalBuilderID = "https://github.com/adilalperenciftci/runtime-provenance-firewall/builders/local-fixture/v0.1"
 
 func CreateLocalFixtureProvenance(artifactName string, artifact []byte, events []Event, repository, revision string) (Statement, error) {
 	if artifactName == "" || len(artifact) == 0 || len(events) == 0 || repository == "" || revision == "" {

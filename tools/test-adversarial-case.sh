@@ -37,7 +37,7 @@ auth_lab=build/out/$case_name-auth-lab
 auth_ready=$auth_lab/ready
 auth_result=build/out/$case_name-auth-result.txt
 enter=/src/build/out/rpf-cgroup-enter
-repository=https://example.test/agent-boundary
+repository=https://example.test/runtime-provenance-firewall
 revision=1111111111111111111111111111111111111111
 mock_pid=
 

@@ -27,7 +27,7 @@ keys, no insignificant whitespace, no duplicate keys, finite numbers only, and a
     "build_id": "bld_7d44f4a5bfc24bfa",
     "run_id": "local-lab-0001",
     "source": {
-      "repository": "https://example.test/agent-boundary",
+      "repository": "https://example.test/runtime-provenance-firewall",
       "revision": "1111111111111111111111111111111111111111"
     },
     "boot_id": "4f25a5e2-3a0d-4bb0-99dd-a4e4b6c2a100",

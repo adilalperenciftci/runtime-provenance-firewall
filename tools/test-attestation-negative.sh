@@ -37,7 +37,7 @@ status=0
 test "$status" -eq 4
 test ! -e "$output"
 
-sed 's#https://github.com/adilalperenciftci/agent-boundary/builders/local-fixture/v0.1#https://attacker.example/builder#g' \
+sed 's#https://github.com/adilalperenciftci/runtime-provenance-firewall/builders/local-fixture/v0.1#https://attacker.example/builder#g' \
   "$provenance" >"$unauthorized_builder"
 "$validator" assemble --artifact "$artifact" --events "$events" --provenance "$unauthorized_builder" \
   --policy "$policy" --output "$output" >/dev/null
@@ -48,7 +48,7 @@ test "$status" -eq 3
 grep -q '"code":"RPF-BUILDER-001"' "$decision"
 rm -rf "$output"
 
-sed 's#https://example.test/agent-boundary#https://attacker.example/repo#g' \
+sed 's#https://example.test/runtime-provenance-firewall#https://attacker.example/repo#g' \
   "$provenance" >"$runtime_source_mismatch"
 status=0
 "$validator" assemble --artifact "$artifact" --events "$events" --provenance "$runtime_source_mismatch" \
@@ -56,7 +56,7 @@ status=0
 test "$status" -eq 4
 test ! -e "$output"
 
-sed 's#https://example.test/agent-boundary#https://attacker.example/repo#g' \
+sed 's#https://example.test/runtime-provenance-firewall#https://attacker.example/repo#g' \
   "$policy" >"$unauthorized_repository_policy"
 "$validator" assemble --artifact "$artifact" --events "$events" --provenance "$provenance" \
   --policy "$unauthorized_repository_policy" --output "$output" >/dev/null

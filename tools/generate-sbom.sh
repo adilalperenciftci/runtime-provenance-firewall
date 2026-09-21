@@ -24,24 +24,24 @@ mkdir -p "$output"
 if [ -z "$docker_output" ]; then
   docker_output=$(CDPATH= cd -- "$output" && pwd -W)
 fi
-rm -f "$output/agent-boundary.spdx.json" "$output/agent-boundary.cdx.json"
+rm -f "$output/runtime-provenance-firewall.spdx.json" "$output/runtime-provenance-firewall.cdx.json"
 
 docker run --rm \
   -v "$docker_root:/src:ro" \
   -v "$docker_output:/out" \
   "$image" scan dir:/src \
-  --source-name agent-boundary \
+  --source-name runtime-provenance-firewall \
   --source-version "$version" \
   --exclude './build/**' \
   --exclude './dist/**' \
   --exclude './.git/**' \
   --exclude './.venv/**' \
-  -o spdx-json=/out/agent-boundary.spdx.json \
-  -o cyclonedx-json=/out/agent-boundary.cdx.json
+  -o spdx-json=/out/runtime-provenance-firewall.spdx.json \
+  -o cyclonedx-json=/out/runtime-provenance-firewall.cdx.json
 
 if [ "$msys_path_conversion" = true ]; then
   unset MSYS_NO_PATHCONV
 fi
 
 python "$root/tools/validate_sbom.py" \
-  "$output/agent-boundary.spdx.json" "$output/agent-boundary.cdx.json"
+  "$output/runtime-provenance-firewall.spdx.json" "$output/runtime-provenance-firewall.cdx.json"

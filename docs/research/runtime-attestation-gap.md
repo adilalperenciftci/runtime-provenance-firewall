@@ -149,7 +149,7 @@ and artifact digest subjects. Standard `monitor`, `monitoredProcess`, `monitorLo
 `metadata` fields remain. One namespaced extension carries only correlation commitments:
 
 ```text
-https://github.com/adilalperenciftci/agent-boundary/runtime-provenance/v0.1
+https://github.com/adilalperenciftci/runtime-provenance-firewall/runtime-provenance/v0.1
   buildId
   runIdentity
   sourceRevision

@@ -18,8 +18,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/adilalperenciftci/agent-boundary/internal/rpf"
-	"github.com/adilalperenciftci/agent-boundary/internal/sensor"
+	"github.com/adilalperenciftci/runtime-provenance-firewall/internal/rpf"
+	"github.com/adilalperenciftci/runtime-provenance-firewall/internal/sensor"
 	"golang.org/x/sys/unix"
 )
 
@@ -114,7 +114,7 @@ func main() {
 		process := processFromKernel(event, *bootID)
 		switch event.Kind {
 		case sensor.EventExec:
-			process.Executable = rpf.Executable{Path: event.Filename, IdentityKind: "path_only"}
+			process.Executable = rpf.Executable{Path: event.Filename, Identity: event.Filename, IdentityKind: "path_only"}
 			if _, exists := processes[process.ProcessKey]; exists || len(processes) < maxTrackedProcesses {
 				processes[process.ProcessKey] = process
 			} else {
@@ -215,7 +215,7 @@ func processFromKernel(event sensor.KernelEvent, bootID string) rpf.Process {
 		ParentKey:  parentKey, PID: event.PID, TGID: event.TGID, PPID: event.PPID,
 		StartTimeNS: event.StartTimeNS, PIDNamespace: uint64(event.PIDNamespace),
 		MountNamespace: uint64(event.MountNamespace), UID: event.UID, GID: event.GID,
-		Executable: rpf.Executable{Path: event.Filename, IdentityKind: "path_only"},
+		Executable: rpf.Executable{Path: event.Filename, Identity: event.Filename, IdentityKind: "path_only"},
 	}
 }
 

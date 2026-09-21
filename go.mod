@@ -1,4 +1,4 @@
-module github.com/adilalperenciftci/agent-boundary
+module github.com/adilalperenciftci/runtime-provenance-firewall
 
 go 1.27
 

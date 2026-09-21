@@ -28,8 +28,7 @@ func Assemble(inputs Inputs) (Bundle, error) {
 	if err != nil {
 		return Bundle{}, err
 	}
-	policy, err := decodePolicy(inputs.PolicyBytes)
-	if err != nil {
+	if _, err := decodePolicy(inputs.PolicyBytes); err != nil {
 		return Bundle{}, fmt.Errorf("policy: %w", err)
 	}
 	provenance, err := decodeStatement(inputs.ProvenanceBytes)
@@ -101,13 +100,12 @@ func Assemble(inputs Inputs) (Bundle, error) {
 		Subject:       []Subject{{Name: inputs.ArtifactName, Digest: map[string]string{"sha256": artifactHash}}},
 		PredicateType: RuntimePredicate,
 		Predicate: map[string]any{
-			"monitor":          map[string]any{"type": "https://github.com/adilalperenciftci/agent-boundary/sensor/v0.1"},
+			"monitor":          map[string]any{"type": "https://github.com/adilalperenciftci/runtime-provenance-firewall/sensor/v0.1"},
 			"monitoredProcess": map[string]any{"hostID": "urn:uuid:" + events[0].Build.BootID, "type": "https://slsa.dev/build/v1", "event": identity.RunIdentity.RunID},
 			"monitorLog":       map[string]any{"process": graph.Nodes},
 			CorrelationKey:     correlationMap,
 		},
 	}
-	_ = policy
 	return Bundle{Graph: graph, Manifest: manifest, RuntimeTrace: runtime}, nil
 }
 
@@ -173,9 +171,6 @@ func Verify(inputs Inputs, bundle Bundle) (Decision, error) {
 	}
 	if !canonicalEqual(bundle.RuntimeTrace, recomputed.RuntimeTrace) {
 		addReject("RPF-INTEGRITY-003", "runtime trace differs from artifact/evidence/provenance binding")
-	}
-	if bundle.Manifest.Artifact.SHA256 != Digest(inputs.ArtifactBytes) {
-		addReject("RPF-ARTIFACT-001", "artifact digest does not match evidence manifest")
 	}
 	if identity.BuildID != bundle.Manifest.BuildID || identity.RunIdentity != bundle.Manifest.RunIdentity {
 		addReject("RPF-IDENTITY-001", "SLSA provenance identity differs from runtime evidence")

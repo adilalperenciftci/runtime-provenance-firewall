@@ -44,7 +44,7 @@ baseline_ns=$(( $(date +%s%N) - start ))
 rm -f "$output"
 timeout --signal=INT 10 "$sensor" --object "$object" --cgroup-id "$cgroup_id" \
   --cgroup-path "$fixture_cgroup" --build-id rpf-kernel-benchmark --run-id local-kernel-benchmark \
-  --boot-id "$boot_id" --repository https://example.test/agent-boundary \
+  --boot-id "$boot_id" --repository https://example.test/runtime-provenance-firewall \
   --revision 1111111111111111111111111111111111111111 \
   --cgroup-path-hash "$cgroup_path_hash" --artifact "$artifact" --output "$output" &
 sensor_pid=$!

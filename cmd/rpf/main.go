@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/adilalperenciftci/agent-boundary/internal/rpf"
+	"github.com/adilalperenciftci/runtime-provenance-firewall/internal/rpf"
 )
 
 func main() {

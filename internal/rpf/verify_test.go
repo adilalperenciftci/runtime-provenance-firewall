@@ -461,3 +461,32 @@ func TestOversizedJSONStringRejected(t *testing.T) {
 		t.Fatal("oversized JSON string accepted")
 	}
 }
+
+func TestEmptyExecutableIdentityRejected(t *testing.T) {
+	proc := Process{
+		ProcessKey:     "sha256:proc",
+		PID:            100,
+		TGID:           100,
+		PPID:           1,
+		StartTimeNS:    1000,
+		PIDNamespace:   42,
+		MountNamespace: 43,
+		UID:            1000,
+		GID:            1000,
+		Executable:     Executable{Path: "/bin/sh", Identity: "", IdentityKind: "content_sha256"},
+	}
+	event := Event{
+		SchemaVersion: EventSchema,
+		EventID:       "00000000-0000-7000-8000-000000000002",
+		Sequence:      2,
+		MonotonicNS:   2,
+		Build:         BuildScope{BuildID: "b", RunID: "r", Source: SourceIdentity{Repository: "repo", Revision: "rev"}, BootID: "boot", CgroupID: 1, CgroupPathHash: "hash"},
+		Sensor:        Sensor{Name: "sensor", Version: "0.1", ConfigDigest: "cfg"},
+		Operation:     "process_exec",
+		Process:       &proc,
+	}
+	if err := validateEvent(event); err == nil {
+		t.Fatal("empty executable identity was accepted for content_sha256")
+	}
+}
+

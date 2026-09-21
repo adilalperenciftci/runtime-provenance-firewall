@@ -6,8 +6,8 @@ const (
 	StatementType    = "https://in-toto.io/Statement/v1"
 	RuntimePredicate = "https://in-toto.io/attestation/runtime-trace/v0.1"
 	SLSAPredicate    = "https://slsa.dev/provenance/v1"
-	CorrelationKey   = "https://github.com/adilalperenciftci/agent-boundary/runtime-provenance/v0.1"
-	BuildIdentityKey = "https://github.com/adilalperenciftci/agent-boundary/build-identity/v0.1"
+	CorrelationKey   = "https://github.com/adilalperenciftci/runtime-provenance-firewall/runtime-provenance/v0.1"
+	BuildIdentityKey = "https://github.com/adilalperenciftci/runtime-provenance-firewall/build-identity/v0.1"
 	zeroHash         = "sha256:0000000000000000000000000000000000000000000000000000000000000000"
 )
 

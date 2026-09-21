@@ -80,7 +80,7 @@ func validateEvent(event Event) error {
 	if event.Operation == "process_exec" && event.Process == nil {
 		return errors.New("process_exec requires process identity")
 	}
-	if event.Process != nil && (event.Process.ProcessKey == "" || event.Process.TGID == 0 || event.Process.StartTimeNS == 0 || event.Process.PIDNamespace == 0 || event.Process.MountNamespace == 0 || event.Process.Executable.Path == "" || event.Process.Executable.IdentityKind == "") {
+	if event.Process != nil && (event.Process.ProcessKey == "" || event.Process.TGID == 0 || event.Process.StartTimeNS == 0 || event.Process.PIDNamespace == 0 || event.Process.MountNamespace == 0 || event.Process.Executable.Path == "" || event.Process.Executable.IdentityKind == "" || (event.Process.Executable.IdentityKind != "path_only" && event.Process.Executable.Identity == "")) {
 		return errors.New("composite process identity is incomplete")
 	}
 	return nil
