@@ -1,22 +1,24 @@
 # Runtime Provenance Firewall
 
-Runtime Provenance Firewall investigates cryptographic binding between Linux runtime evidence and build provenance attestations (SLSA Provenance v1 and in-toto Runtime Trace v0.1).
+Runtime Provenance Firewall is a research prototype that correlates cgroup-scoped Linux/eBPF evidence with artifact digests, SLSA provenance, and in-toto Runtime Trace statements. It recomputes the evidence chain and returns `ALLOW`, `REVIEW`, or `REJECT` from explicit policy; known event loss cannot produce `ALLOW`.
 
 While SLSA provenance records source repository, builder identity, declared inputs, and final artifact digests, it does not record child process execution, sensitive file access during package installation, or network connection attempts. Conversely, system observability tools collect execution events, but telemetry alone does not cryptographically prove that runtime traces, source code, and build artifacts originate from the same verified execution.
 
-This project implements a prototype verifier that evaluates deterministic equalities across runtime evidence, build metadata, and policy rules.
+The verifier checks deterministic equalities across runtime evidence, build metadata, and policy rules. It does not establish a trusted host or prove that every relevant operation was observed; see [limitations](docs/limitations.md).
 
 ## Overview
 
-```text
-canonical runtime events (deterministic JSON serialization)
-        -> verified event hash chain and loss state
-        -> execution graph reconstruction
-        -> artifact digest commitment
-        -> in-toto Runtime Trace v0.1 correlation extension
-        -> SLSA v1 identity & digest equality validation
-        -> deterministic policy engine
-        -> ALLOW / REVIEW / REJECT
+```mermaid
+flowchart LR
+  C[Target cgroup] --> S[Linux BPF CO-RE sensor]
+  S --> E[Canonical events and loss counters]
+  E --> V[Chain and continuity verification]
+  V --> G[Execution graph and artifact commitment]
+  P[SLSA provenance] --> D[Identity and digest equality]
+  T[in-toto Runtime Trace] --> D
+  G --> D
+  D --> R[Deterministic policy]
+  R --> O[ALLOW / REVIEW / REJECT]
 ```
 
 The system combines:
@@ -37,7 +39,7 @@ The system combines:
 ## Building and Testing
 
 Prerequisites:
-- Go 1.22+ (tested with Go 1.27)
+- Go 1.27 or newer (as required by `go.mod`)
 - Linux kernel with cgroup v2, BTF, and eBPF support for sensor execution
 
 ### Running Tests
